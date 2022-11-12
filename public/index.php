@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+include '../vendor/autoload.php';
 require 'src/MainController.php';
 
 $section = $_GET['section'] ?? $_POST['section'] ?? 'home';
