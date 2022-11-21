@@ -2,8 +2,12 @@
 
 class AboutUsController extends MainController
 {
-    public function defaultAction()
+    public function defaultAction(): void
     {
-        include 'view/about-us.html';
+        $variables['title'] = 'About us page';
+        $variables['content'] = 'About us content of the page';
+
+        $template = new Template('default');
+        $template->view('static-page', $variables);
     }
 }
