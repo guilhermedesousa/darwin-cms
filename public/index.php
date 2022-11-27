@@ -8,6 +8,12 @@ define('VIEW_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARAT
 include '../vendor/autoload.php';
 require_once ROOT_PATH . 'src/MainController.php';
 require_once ROOT_PATH . 'src/Template.php';
+require_once ROOT_PATH . 'src/DatabaseConnection.php';
+require_once ROOT_PATH . 'model/Page.php';
+
+// Bootstrap
+/* Connect to a MySQL database using driver invocation */
+DatabaseConnection::connect('localhost', 'darwin_cms', 'root', '');
 
 $section = $_GET['section'] ?? $_POST['section'] ?? 'home';
 $action = $_GET['action'] ?? $_POST['action'] ?? 'default';

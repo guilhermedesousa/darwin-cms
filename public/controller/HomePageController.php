@@ -10,8 +10,12 @@ class HomePageController extends MainController
         // $content
         // $variable1
 
-        $variables['title'] = 'Home page Title';
-        $variables['content'] = 'Welcome to our homepage';
+        $dbh = DatabaseConnection::getInstance();
+        $dbc = $dbh->getConnection();
+
+        $pageObj = new Page($dbc);
+        $pageObj->findById(1);
+        $variables['pageObj'] = $pageObj;
 
         $template = new Template('default');
         $template->view('static-page', $variables);
