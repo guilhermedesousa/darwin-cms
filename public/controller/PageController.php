@@ -1,6 +1,6 @@
 <?php
 
-class AboutUsController extends MainController
+class PageController extends MainController
 {
     public function defaultAction(): void
     {
@@ -8,7 +8,7 @@ class AboutUsController extends MainController
         $dbc = $dbh->getConnection();
 
         $pageObj = new Page($dbc);
-        $pageObj->findById(2);
+        $pageObj->findBy('id', $this->entityId);
         $variables['pageObj'] = $pageObj;
 
         $template = new Template('default');

@@ -26,7 +26,7 @@ class ContactController extends MainController
         $dbc = $dbh->getConnection();
 
         $pageObj = new Page($dbc);
-        $pageObj->findById(5);
+        $pageObj->findBy('id',$this->entityId);
         $variables['pageObj'] = $pageObj;
 
         $template = new Template('default');

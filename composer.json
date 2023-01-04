@@ -1,5 +1,6 @@
 {
     "require": {
-        "kint-php/kint": "^4.2"
+        "kint-php/kint": "^4.2",
+        "ext-pdo": "*"
     }
 }

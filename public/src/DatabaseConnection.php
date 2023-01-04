@@ -5,7 +5,7 @@ final class DatabaseConnection
     private static DatabaseConnection|null $instance = null;
     private static PDO $connection;
 
-    public static function getInstance(): DatabaseConnection
+    public static function getInstance(): self
     {
         if (is_null(self::$instance)) {
             self::$instance = new DatabaseConnection();

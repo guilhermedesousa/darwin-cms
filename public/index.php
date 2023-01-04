@@ -9,25 +9,28 @@ include '../vendor/autoload.php';
 require_once ROOT_PATH . 'src/MainController.php';
 require_once ROOT_PATH . 'src/Template.php';
 require_once ROOT_PATH . 'src/DatabaseConnection.php';
+require_once ROOT_PATH . 'src/Entity.php';
+require_once ROOT_PATH . 'src/Router.php';
 require_once ROOT_PATH . 'model/Page.php';
 
 // Bootstrap
 /* Connect to a MySQL database using driver invocation */
 DatabaseConnection::connect('localhost', 'darwin_cms', 'root', '');
 
-$section = $_GET['section'] ?? $_POST['section'] ?? 'home';
-$action = $_GET['action'] ?? $_POST['action'] ?? 'default';
+$action = $_GET['seo_name'] ?? 'home';
 
-if ($section == 'about-us') {
-    include ROOT_PATH . 'controller/AboutUsController.php';
-    $aboutUsController = new AboutUsController();
-    $aboutUsController->runAction($action);
-} else if ($section == 'contact-us') {
-    include ROOT_PATH . 'controller/ContactController.php';
-    $contactController = new ContactController();
-    $contactController->runAction($action);
-} else {
-    include ROOT_PATH . 'controller/HomePageController.php';
-    $homePageController = new HomePageController();
-    $homePageController->runAction($action);
+$dbh = DatabaseConnection::getInstance();
+$dbc = $dbh->getConnection();
+
+$router = new Router($dbc);
+$router->findBy('pretty_url', $action);
+$action = $router->action != '' ? $router->action : 'default';
+
+$moduleName = ucfirst($router->module) . 'Controller';
+
+if (file_exists(ROOT_PATH . "controller/$moduleName.php")) {
+    include ROOT_PATH . "controller/$moduleName.php";
+    $controller = new $moduleName();
+    $controller->setEntityId($router->entity_id);
+    $controller->runAction($action);
 }
