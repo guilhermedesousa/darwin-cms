@@ -13,7 +13,7 @@ class ContactController extends MainController
             $variables['pageObj'] = $pageObj;
 
             $template = new Template('default');
-            $template->view('static-page', $variables);
+            $template->view('page/view/static-page', $variables);
 
             return false;
         }
@@ -30,7 +30,7 @@ class ContactController extends MainController
         $variables['pageObj'] = $pageObj;
 
         $template = new Template('default');
-        $template->view('contact/contact-us', $variables);
+        $template->view('contact/view/contact-us', $variables);
     }
 
     public function submitContactFormAction(): void
@@ -49,6 +49,6 @@ class ContactController extends MainController
         $variables['pageObj'] = $pageObj;
 
         $template = new Template('default');
-        $template->view('static-page', $variables);
+        $template->view('page/view/static-page', $variables);
     }
 }

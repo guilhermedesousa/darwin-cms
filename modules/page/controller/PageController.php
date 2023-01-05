@@ -12,6 +12,6 @@ class PageController extends MainController
         $variables['pageObj'] = $pageObj;
 
         $template = new Template('default');
-        $template->view('static-page', $variables);
+        $template->view('page/view/static-page', $variables);
     }
 }
