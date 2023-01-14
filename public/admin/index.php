@@ -14,8 +14,11 @@ require_once ROOT_PATH . 'src/DatabaseConnection.php';
 require_once ROOT_PATH . 'src/Entity.php';
 require_once ROOT_PATH . 'src/Router.php';
 require_once ROOT_PATH . 'src/Auth.php';
-require_once ROOT_PATH . 'src/PasswordValidator.php';
-require_once ROOT_PATH . 'src/PasswordRules.php';
+require_once ROOT_PATH . 'src/Validation.php';
+require_once ROOT_PATH . 'src/validationRules/ValidateMinimum.php';
+require_once ROOT_PATH . 'src/validationRules/ValidateMaximum.php';
+require_once ROOT_PATH . 'src/validationRules/ValidateEmail.php';
+require_once ROOT_PATH . 'src/validationRules/ValidateSpecialCharacter.php';
 require_once MODULE_PATH . 'page/model/Page.php';
 require_once MODULE_PATH . 'user/model/User.php';
 

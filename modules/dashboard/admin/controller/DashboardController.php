@@ -22,30 +22,40 @@ class DashboardController extends MainController
         echo "Welcome to the administration";
     }
 
-    public function loginAction()
+    public function loginAction(): void
     {
         if ($_POST['postAction'] ?? 0 == 1) {
             $username = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
 
-            $auth = new Auth();
-            $validator = new PasswordValidator($password);
-            if (!$validator->checkMinCharacters()) {
-                echo 'Password must be at least 6 characters. <br>';
-            } else if (!$validator->checkMaxCharacters()) {
-                echo 'Password must be a maximum of 20 characters. <br>';
-            } else if (!$validator->checkSpecialCharacters()) {
-                echo 'Password must be at least 1 special character. <br>';
-            } else {
+            $validation = new Validation();
+
+            if (!$validation
+                ->addRule(new ValidateEmail())
+                ->validate($username)) {
+                $_SESSION['validationRules']['error'] = "Username is not a valid email";
+            } else if (!$validation
+                ->addRule(new ValidateMinimum(6))
+                ->addRule(new ValidateMaximum(20))
+                ->addRule(new ValidateSpecialCharacter())
+                ->validate($password)) {
+                $_SESSION['validationRules']['error'] = "Password must be between 6 and 20 characters and must contain one special character.";
+            }
+
+            if (($_SESSION['validationRules']['error'] ?? '') == '') {
+                $auth = new Auth();
                 if ($auth->checkLogin($username, $password)) {
                     // all is good
                     $_SESSION['is_admin'] = 1;
                     header('Location: /darwin-cms/public/admin/');
+                    exit();
                 }
-            }
 
-            var_dump('bad login');
+                $_SESSION['validationRules']['error'] = "Username or password is incorrect";
+            }
         }
+
         include VIEW_PATH . 'admin/login.html';
+        unset($_SESSION['validationRules']['error']);
     }
 }
