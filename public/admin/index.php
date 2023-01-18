@@ -8,6 +8,7 @@ define('MODULE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SE
 define('ENCRYPTION_SALT', '43h25oi34lkfnmsdoi89f');
 
 include '../../vendor/autoload.php';
+require_once ROOT_PATH . 'src/interfaces/IValidationRule.php';
 require_once ROOT_PATH . 'src/MainController.php';
 require_once ROOT_PATH . 'src/Template.php';
 require_once ROOT_PATH . 'src/DatabaseConnection.php';
@@ -19,6 +20,7 @@ require_once ROOT_PATH . 'src/validationRules/ValidateMinimum.php';
 require_once ROOT_PATH . 'src/validationRules/ValidateMaximum.php';
 require_once ROOT_PATH . 'src/validationRules/ValidateEmail.php';
 require_once ROOT_PATH . 'src/validationRules/ValidateSpecialCharacter.php';
+require_once ROOT_PATH . 'src/validationRules/ValidateNoEmptySpaces.php';
 require_once MODULE_PATH . 'page/model/Page.php';
 require_once MODULE_PATH . 'user/model/User.php';
 

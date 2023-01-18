@@ -1,19 +1,17 @@
 <?php
 
-class ValidateEmail
+class ValidateEmail implements IValidationRule
 {
-    private int $filter;
-
-    public function __construct($filter = FILTER_VALIDATE_EMAIL)
-    {
-        $this->filter = $filter;
-    }
-
     public function validateRule($value): bool
     {
-        if (!filter_var($value, $this->filter)) {
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
             return false;
         }
         return true;
+    }
+
+    public function getErrorMessage(): string
+    {
+        return "Email format is not correct.";
     }
 }

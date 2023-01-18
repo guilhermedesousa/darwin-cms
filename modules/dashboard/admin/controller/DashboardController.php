@@ -31,15 +31,18 @@ class DashboardController extends MainController
             $validation = new Validation();
 
             if (!$validation
+                ->addRule(new ValidateMinimum(3))
                 ->addRule(new ValidateEmail())
                 ->validate($username)) {
-                $_SESSION['validationRules']['error'] = "Username is not a valid email";
-            } else if (!$validation
-                ->addRule(new ValidateMinimum(6))
+                $_SESSION['validationRules']['error'] = $validation->getAllErrorMessages();
+            } elseif (!$validation
+                ->cleanRules()
+                ->addRule(new ValidateMinimum(3))
                 ->addRule(new ValidateMaximum(20))
+                ->addRule(new ValidateNoEmptySpaces())
                 ->addRule(new ValidateSpecialCharacter())
                 ->validate($password)) {
-                $_SESSION['validationRules']['error'] = "Password must be between 6 and 20 characters and must contain one special character.";
+                $_SESSION['validationRules']['error'] = $validation->getAllErrorMessages();
             }
 
             if (($_SESSION['validationRules']['error'] ?? '') == '') {
@@ -51,7 +54,7 @@ class DashboardController extends MainController
                     exit();
                 }
 
-                $_SESSION['validationRules']['error'] = "Username or password is incorrect";
+                $_SESSION['validationRules']['error'] = ["Username or password is incorrect"];
             }
         }
 

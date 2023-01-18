@@ -31,7 +31,15 @@
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required value="<?= $_POST['password'] ?? '' ?>">
     <div class="text-danger">
-      <?= $_SESSION['validationRules']['error'] ?? '' ?>
+      <?php
+        if (isset($_SESSION['validationRules']['error'])) {
+          foreach($_SESSION['validationRules']['error'] as $error) {
+            echo $error . '<br>';
+          }
+        } else {
+          echo '';
+        }
+      ?>
     </div>
     <div class="checkbox mb-3">
       <label>

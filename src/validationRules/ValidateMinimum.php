@@ -1,6 +1,6 @@
 <?php
 
-class ValidateMinimum
+class ValidateMinimum implements IValidationRule
 {
     private int $minimum;
 
@@ -12,5 +12,10 @@ class ValidateMinimum
     public function validateRule($value): bool
     {
         return strlen($value) >= $this->minimum;
+    }
+
+    public function getErrorMessage(): string
+    {
+        return "Minimum value is under $this->minimum";
     }
 }

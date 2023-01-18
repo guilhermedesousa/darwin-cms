@@ -1,6 +1,6 @@
 <?php
 
-class ValidateMaximum
+class ValidateMaximum implements IValidationRule
 {
     private int $maximum;
 
@@ -12,5 +12,10 @@ class ValidateMaximum
     public function validateRule($value): bool
     {
         return strlen($value) <= $this->maximum;
+    }
+
+    public function getErrorMessage(): string
+    {
+        return "Maximum value is over $this->maximum";
     }
 }
