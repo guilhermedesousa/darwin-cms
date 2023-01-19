@@ -3,6 +3,7 @@
 class MainController
 {
     protected string $entityId;
+    public $template;
 
     public function runAction($actionName): void
     {

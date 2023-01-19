@@ -19,7 +19,9 @@ class DashboardController extends MainController
 
     public function defaultAction(): void
     {
-        echo "Welcome to the administration";
+        $variables = [];
+        header('Location: /darwin-cms/public/admin/index.php?module=page');
+        exit();
     }
 
     public function loginAction(): void

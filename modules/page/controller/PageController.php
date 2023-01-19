@@ -11,7 +11,6 @@ class PageController extends MainController
         $pageObj->findBy('id', $this->entityId);
         $variables['pageObj'] = $pageObj;
 
-        $template = new Template('default');
-        $template->view('page/view/static-page', $variables);
+        $this->template->view('page/view/static-page', $variables);
     }
 }
