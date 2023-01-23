@@ -2,7 +2,7 @@
 
 final class DatabaseConnection
 {
-    private static DatabaseConnection|null $instance = null;
+    private static $instance = null;
     private static PDO $connection;
 
     public static function getInstance(): self

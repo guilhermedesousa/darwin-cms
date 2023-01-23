@@ -25,6 +25,7 @@ $dbc = $dbh->getConnection();
 
 $router = new Router($dbc);
 $router->findBy('pretty_url', $action);
+var_dump($router);
 $action = $router->action != '' ? $router->action : 'default';
 
 $moduleName = ucfirst($router->module) . 'controller';
