@@ -1,9 +1,11 @@
 <?php
 
+namespace src;
+
 final class DatabaseConnection
 {
     private static $instance = null;
-    private static PDO $connection;
+    private static $connection;
 
     public static function getInstance(): self
     {
@@ -21,10 +23,10 @@ final class DatabaseConnection
 
     public static function connect($host, $dbName, $user, $password): void
     {
-        self::$connection = new PDO("mysql:dbname=$dbName;host=$host", $user, $password);
+        self::$connection = new \PDO("mysql:dbname=$dbName;host=$host", $user, $password);
     }
 
-    public static function getConnection(): PDO
+    public static function getConnection(): \PDO
     {
         return self::$connection;
     }
