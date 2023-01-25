@@ -1,5 +1,9 @@
 <?php
 
+namespace modules\user\model;
+
+use src\Entity;
+
 class User extends Entity
 {
     public function __construct($dbc)

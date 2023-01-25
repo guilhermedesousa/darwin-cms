@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\dashboard\admin\controller;
+
+use src\{MainController, Validation, Auth};
+use src\validationRules\{ValidateEmail, ValidateMinimum, ValidateNoEmptySpaces, ValidateSpecialCharacter, ValidateMaximum};
+
 class DashboardController extends MainController
 {
     public function runBeforeAction()

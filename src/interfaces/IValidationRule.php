@@ -1,5 +1,7 @@
 <?php
 
+namespace src\interfaces;
+
 interface IValidationRule
 {
     public function validateRule($value);

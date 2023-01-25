@@ -1,5 +1,9 @@
 <?php
 
+namespace src\validationRules;
+
+use src\interfaces\IValidationRule;
+
 class ValidateMaximum implements IValidationRule
 {
     private int $maximum;

@@ -2,8 +2,8 @@
 
 session_start();
 
-use src\DatabaseConnection;
-use src\Template;
+use src\{DatabaseConnection, Template};
+use modules\dashboard\admin\controller\DashboardController;
 
 define('ROOT_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 define('VIEW_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR);
@@ -13,28 +13,10 @@ define('ENCRYPTION_SALT', '43h25oi34lkfnmsdoi89f');
 spl_autoload_register(function ($class_name) {
     $file = ROOT_PATH . str_replace('\\', '/', $class_name) . '.php';
 
-    // if the file exists, require it
     if (file_exists($file)) {
         require $file;
     }
 });
-
-//include '../../vendor/autoload.php';
-//require_once ROOT_PATH . 'src/interfaces/IValidationRule.php';
-//require_once ROOT_PATH . 'src/MainController.php';
-//require_once ROOT_PATH . 'src/Template.php';
-//require_once ROOT_PATH . 'src/DatabaseConnection.php';
-//require_once ROOT_PATH . 'src/Entity.php';
-//require_once ROOT_PATH . 'src/Router.php';
-//require_once ROOT_PATH . 'src/Auth.php';
-//require_once ROOT_PATH . 'src/Validation.php';
-//require_once ROOT_PATH . 'src/validationRules/ValidateMinimum.php';
-//require_once ROOT_PATH . 'src/validationRules/ValidateMaximum.php';
-//require_once ROOT_PATH . 'src/validationRules/ValidateEmail.php';
-//require_once ROOT_PATH . 'src/validationRules/ValidateSpecialCharacter.php';
-//require_once ROOT_PATH . 'src/validationRules/ValidateNoEmptySpaces.php';
-//require_once MODULE_PATH . 'page/model/Page.php';
-//require_once MODULE_PATH . 'user/model/User.php';
 
 // Bootstrap
 /* Connect to a MySQL database using driver invocation */

@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\contact\controller;
+
+use src\{MainController, DatabaseConnection};
+use modules\page\model\Page;
+
 class ContactController extends MainController
 {
     public function runBeforeAction(): bool

@@ -2,9 +2,10 @@
 
 namespace modules\page\admin\controller;
 
+use src\MainController;
 use modules\page\model\Page;
 
-class PageController extends \src\MainController
+class PageController extends MainController
 {
     public function runBeforeAction()
     {

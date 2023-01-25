@@ -1,5 +1,7 @@
 <?php
 
+namespace src;
+
 class PasswordRules
 {
     public int $minCharacters;

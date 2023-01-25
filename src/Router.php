@@ -1,5 +1,7 @@
 <?php
 
+namespace src;
+
 class Router extends Entity
 {
     public function __construct($dbc)

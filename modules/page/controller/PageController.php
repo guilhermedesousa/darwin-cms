@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\page\controller;
+
+use src\{MainController, DatabaseConnection};
+use modules\page\model\Page;
+
 class PageController extends MainController
 {
     public function defaultAction(): void

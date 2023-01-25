@@ -1,5 +1,9 @@
 <?php
 
+namespace src\validationRules;
+
+use src\interfaces\IValidationRule;
+
 class ValidateNoEmptySpaces implements IValidationRule
 {
     public function validateRule($value): bool

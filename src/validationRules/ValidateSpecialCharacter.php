@@ -1,5 +1,9 @@
 <?php
 
+namespace src\validationRules;
+
+use src\interfaces\IValidationRule;
+
 class ValidateSpecialCharacter implements IValidationRule
 {
     private string $rule;
