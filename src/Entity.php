@@ -7,6 +7,7 @@ abstract class Entity
     protected $dbc;
     protected $tableName;
     protected $fields;
+    protected $primaryKeys = ['id'];
 
     abstract protected function initFields();
 
@@ -24,7 +25,7 @@ abstract class Entity
         $databaseData = $stmt->fetch();
 
         if ($databaseData) {
-            $this->setValues($this, $databaseData);
+            $this->setValues($databaseData);
         }
     }
 
@@ -37,7 +38,7 @@ abstract class Entity
             $className = static::class;
             foreach ($databaseData as $objectData) {
                 $object = new $className($this->dbc);
-                $object = $this->setValues($object, $objectData);
+                $object = $this->setValues($objectData, $object);
                 $results[] = $object;
             }
         }
@@ -62,11 +63,48 @@ abstract class Entity
         return $databaseData;
     }
 
-    public function setValues($object, $values): Entity
+    public function setValues($values, $object = null): Entity
     {
+        if ($object === null) {
+            $object = $this;
+        }
+
+        foreach ($object->primaryKeys as $keyName) {
+            if (isset($values[$keyName])) {
+                $object->$keyName = $values[$keyName];
+            }
+        }
+
         foreach ($object->fields as $fieldName) {
-            $object->$fieldName = $values[$fieldName];
+            if (isset($values[$fieldName])) {
+                $object->$fieldName = $values[$fieldName];
+            }
         }
         return $object;
+    }
+
+    public function save()
+    {
+        $fieldBindings = [];
+        $keyBindings = [];
+        $preparedFields = [];
+
+        foreach ($this->primaryKeys as $keyName) {
+            $keyBindings[$keyName] = "$keyName = :$keyName";
+            $preparedFields[$keyName] = $this->$keyName;
+        }
+
+        foreach ($this->fields as $fieldName) {
+            $fieldBindings[$fieldName] = "$fieldName = :$fieldName";
+            $preparedFields[$fieldName] = $this->$fieldName;
+        }
+
+        $fieldBindingsString = join(', ', $fieldBindings);
+        $keyBindingsString = join(', ', $keyBindings);
+
+        $sql = "UPDATE $this->tableName SET $fieldBindingsString WHERE $keyBindingsString";
+
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($preparedFields);
     }
 }

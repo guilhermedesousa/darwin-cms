@@ -1,5 +1,9 @@
 <?php declare(strict_types=1);
+
+namespace tests;
+
 use PHPUnit\Framework\TestCase;
+use modules\page\model\Page;
 
 require_once 'src/Entity.php';
 require_once 'modules/page/model/Page.php';
@@ -40,5 +44,27 @@ final class ActiveRecordTest extends TestCase
         $page->findBy('id', 1);
 
         $this->assertEquals(1, $page->id);
+    }
+
+    public function testSave(): void
+    {
+        $mockDatabase = $this->getMockBuilder(FakeDatabaseConnection::class)
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
+
+        $mockDatabase->expects($this->exactly(2))
+            ->method('prepare')
+            ->with(
+                $this->logicalOr(
+                    $this->equalTo('SELECT * FROM pages WHERE id = :value'),
+                    $this->equalTo('UPDATE pages SET title = :title, content = :content WHERE id = :id')
+                ));
+
+        $page = new Page($mockDatabase);
+        $page->findBy('id', 12);
+
+        $page->title = "new title";
+        $page->save();
+        $this->assertEquals("new title", $page->title);
     }
 }

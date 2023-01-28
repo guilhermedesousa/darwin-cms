@@ -1,5 +1,9 @@
 <?php declare(strict_types=1);
+
+namespace tests;
+
 use PHPUnit\Framework\TestCase;
+use src\{Validation, validationRules\ValidateEmail};
 
 require_once 'src/interfaces/IValidationRule.php';
 require_once 'src/Validation.php';

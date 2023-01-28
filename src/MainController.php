@@ -7,6 +7,7 @@ class MainController
     protected string $entityId;
     public $template;
     public $dbc;
+    public  $log;
 
     public function runAction($actionName): void
     {
