@@ -50,4 +50,16 @@ class PageController extends MainController
         $variables['page'] = $page;
         $this->template->view('page/admin/view/page-edit', $variables);
     }
+
+    public function insertPageAction()
+    {
+        if ($_POST['action'] ?? false) {
+            $page = new Page($this->dbc);
+            $page->setValues($_POST);
+            $page->insert();
+        }
+
+        $variables = [];
+        $this->template->view('page/admin/view/page-insert', $variables);
+    }
 }

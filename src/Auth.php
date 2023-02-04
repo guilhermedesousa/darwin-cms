@@ -16,10 +16,12 @@ class Auth
 
         if (property_exists($userObj, 'id')) {
             if (password_verify($password, $userObj->password)) {
+                $_SESSION['name'] = $userObj->name;
                 // all is good
                 return true;
             }
         }
+        return false;
     }
 
     public function changeUserPassword($userObj, $newPassword)

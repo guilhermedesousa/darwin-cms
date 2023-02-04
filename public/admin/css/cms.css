@@ -1,0 +1,20 @@
+.navbar {
+    padding: 0.5rem 2rem !important;
+}
+
+p {
+    margin: 0 !important;
+}
+
+section.content > .content-wrapper {
+    margin-left: 0 !important;
+}
+
+.content-wrapper > .content {
+    padding: 0.5rem !important;
+}
+
+.card-footer {
+    background: none !important;
+    padding: 0 !important;
+}

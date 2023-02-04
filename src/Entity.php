@@ -2,6 +2,8 @@
 
 namespace src;
 
+use phpDocumentor\Reflection\Types\This;
+
 abstract class Entity
 {
     protected $dbc;
@@ -80,6 +82,7 @@ abstract class Entity
                 $object->$fieldName = $values[$fieldName];
             }
         }
+
         return $object;
     }
 
@@ -106,5 +109,22 @@ abstract class Entity
 
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($preparedFields);
+    }
+
+    public function insert()
+    {
+        $fieldBindingsString = join(', ', $this->fields);
+        $preparedFields = [];
+
+        foreach ($this->fields as $fieldName) {
+            $preparedFields[] = '"' . $this->$fieldName . '"';
+        }
+
+        $valuesString = join(', ', $preparedFields);
+
+        $sql = "INSERT INTO $this->tableName ($fieldBindingsString) VALUES ($valuesString)";
+
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute();
     }
 }
