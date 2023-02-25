@@ -57,9 +57,25 @@ class PageController extends MainController
             $page = new Page($this->dbc);
             $page->setValues($_POST);
             $page->insert();
+
+            $this->log->warning("Admin has created a new page");
         }
 
         $variables = [];
         $this->template->view('page/admin/view/page-insert', $variables);
+    }
+
+    public function deletePageAction()
+    {
+        $pageId = $_GET['id'];
+        $page = new Page($this->dbc);
+        $page->findBy('id', $pageId);
+
+        $page->delete();
+        $this->log->warning("Admin has deleted the page id: $pageId");
+
+        $pages = $page->findAll();
+        $variables['pages'] = $pages;
+        $this->template->view('page/admin/view/page-list', $variables);
     }
 }

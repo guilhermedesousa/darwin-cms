@@ -127,4 +127,22 @@ abstract class Entity
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute();
     }
+
+    public function delete()
+    {
+        $keyBindings = [];
+        $preparedFields = [];
+
+        foreach ($this->primaryKeys as $keyName) {
+            $keyBindings[$keyName] = "$keyName = :$keyName";
+            $preparedFields[$keyName] = $this->$keyName;
+        }
+
+        $keyBindingsString = join(', ', $keyBindings);
+
+        $sql = "DELETE FROM $this->tableName WHERE $keyBindingsString";
+
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($preparedFields);
+    }
 }
